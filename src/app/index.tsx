@@ -16,9 +16,9 @@ const targets = [
   {
     id: '1',
     name: 'Macbook',
-    current: 'R$ 500,00',
-    percentage: '7%',
-    target: 'R$ 3500,00',
+    current: 'R$ 525,00',
+    percentage: '15%',
+    target: 'R$ 3.500,00',
   },
   {
     id: '2',
@@ -32,7 +32,7 @@ const targets = [
     name: 'Fazer uma viagem para Campos do Jordão',
     current: 'R$ 300,00',
     percentage: '10%',
-    target: 'R$ 3000,00',
+    target: 'R$ 3.000,00',
   },
 ];
 
