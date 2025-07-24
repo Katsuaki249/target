@@ -5,6 +5,7 @@
     "scheme": "target",
     "version": "1.0.0",
     "android": {
+      "edgeToEdgeEnabled": true,
       "package": "com.vinishi.target",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -15,9 +16,6 @@
       "bundleIndentifier": "com.vinishi.target",
       "icon": "./assets/ions-icon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-font"
-    ]
+    "plugins": ["expo-router", "expo-font"]
   }
 }
