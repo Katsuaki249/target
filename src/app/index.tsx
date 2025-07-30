@@ -39,7 +39,7 @@ const targets = [
 export default function Index() {
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <HomeHeader data={summary} />
 
       <List
