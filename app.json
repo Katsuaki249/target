@@ -16,6 +16,10 @@
       "bundleIndentifier": "com.vinishi.target",
       "icon": "./assets/ions-icon.png"
     },
-    "plugins": ["expo-router", "expo-font"]
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-sqlite"
+    ]
   }
 }
