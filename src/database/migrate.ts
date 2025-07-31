@@ -9,7 +9,7 @@ export async function migrate(database: SQLiteDatabase) {
       name TEXT NOT NULL,
       amount FLOAT NOT NULL,
       created_at timestamp NOT NULL DEFAULT current_timestamp,
-      updated_at timestamp NOT NULL DEFAULT current_timestamp,
+      updated_at timestamp NOT NULL DEFAULT current_timestamp
     );
 
     CREATE TABLE IF NOT EXISTS transactions (
