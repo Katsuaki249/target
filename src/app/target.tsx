@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { PageHeader } from '@/components/PageHeader';
 import { Input } from '@/components/Input';
@@ -48,6 +48,25 @@ export default function Target() {
       setIsProcessing(false);
     }
   }
+
+  async function fetchDetails(id: number) {
+    try {
+      const response = await targetDatabase.show(id);
+      if (response) {
+        setName(response.name);
+        setAmount(response.amount);
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível carregar os detalhes da meta');
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (params.id) {
+      fetchDetails(Number(params.id));
+    }
+  }, [params.id]);
 
   return (
     <View style={{ flex: 1, padding: 24 }}>
