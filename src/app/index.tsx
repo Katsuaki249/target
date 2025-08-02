@@ -6,9 +6,11 @@ import { HomeHeader } from '@/components/HomeHeader';
 import { Target, TargetProps } from '@/components/Target';
 import { List } from '@/components/List';
 import { Button } from '@/components/Button';
+import { Loading } from '@/components/Loading';
+
+import { numberToCurency } from '@/utils/numberToCurrency';
 
 import { useTargetDatabase } from '@/database/useTargetDatabase';
-import { Loading } from '@/components/Loading';
 
 const summary = {
   total: 'R$ 2.680,00',
@@ -28,9 +30,9 @@ export default function Index() {
       return response.map((item) => ({
         id: String(item.id),
         name: item.name,
-        current: String(item.current),
+        current: numberToCurency(item.current),
         percentage: item.percentage.toFixed(0) + '%',
-        target: String(item.amount),
+        target: numberToCurency(item.amount),
       }));
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível carregar as metas.');
