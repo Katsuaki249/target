@@ -80,10 +80,15 @@ export function useTargetDatabase() {
     });
   }
 
+  async function remove(id: number) {
+    await database.runAsync('DELETE FROM targets id = ?', id);
+  }
+
   return {
     create,
     listBySavedValue,
     show,
     update,
+    remove,
   };
 }
