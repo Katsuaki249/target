@@ -6,7 +6,7 @@ export type TransactionCreate = {
   observation?: string;
 };
 
-export function useTargetDatabase() {
+export function useTransactionDatabase() {
   const database = useSQLiteContext();
 
   async function create(data: TransactionCreate) {
