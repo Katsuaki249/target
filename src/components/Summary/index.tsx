@@ -9,7 +9,7 @@ export type SummaryProps = {
 };
 
 type Props = {
-  data: SummaryProps;
+  data: SummaryProps | undefined;
   icon: {
     name: keyof typeof MaterialIcons.glyphMap;
     color: ColorValue;
@@ -22,10 +22,10 @@ export function Summary({ data, icon, isRight = false }: Props) {
     <View style={styles.container}>
       <View style={[styles.header, isRight && { justifyContent: 'flex-end' }]}>
         <MaterialIcons name={icon.name} size={16} color={icon.color} />
-        <Text style={styles.label}>{data.label}</Text>
+        <Text style={styles.label}>{data && data.label}</Text>
       </View>
 
-      <Text style={styles.value}>{data.value}</Text>
+      <Text style={styles.value}>{data && data.value}</Text>
     </View>
   );
 }

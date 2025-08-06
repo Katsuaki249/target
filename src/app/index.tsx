@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { View, StatusBar, Alert } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 
-import { HomeHeader } from '@/components/HomeHeader';
+import { HomeHeader, HomeHeaderProps } from '@/components/HomeHeader';
 import { Target, TargetProps } from '@/components/Target';
 import { List } from '@/components/List';
 import { Button } from '@/components/Button';
@@ -11,21 +11,18 @@ import { Loading } from '@/components/Loading';
 import { numberToCurency } from '@/utils/numberToCurrency';
 
 import { useTargetDatabase } from '@/database/useTargetDatabase';
-
-const summary = {
-  total: 'R$ 2.680,00',
-  input: { label: 'Entradas', value: 'R$ 6,184.90' },
-  output: { label: 'Saídas', value: '-R$ 883.65' },
-};
+import { useTransactionDatabase } from '@/database/useTransactionDatabase';
 
 export default function Index() {
+  const [summary, setSummary] = useState<HomeHeaderProps>();
   const [isFetching, setIsFetching] = useState(true);
   const [targets, setTargets] = useState<TargetProps[]>();
   const targetDatabase = useTargetDatabase();
+  const transactionsDatabase = useTransactionDatabase();
 
   async function fetchTargets(): Promise<TargetProps[] | undefined> {
     try {
-      const response = await targetDatabase.listBySavedValue();
+      const response = await targetDatabase.listByClosestTarget();
 
       return response.map((item) => ({
         id: String(item.id),
@@ -40,12 +37,39 @@ export default function Index() {
     }
   }
 
+  async function fetchSummary(): Promise<HomeHeaderProps | undefined> {
+    try {
+      const response = await transactionsDatabase.summary();
+
+      if (response)
+        return {
+          total: numberToCurency(response.input + response.output),
+          input: {
+            label: 'Entradas',
+            value: numberToCurency(response.input),
+          },
+          output: {
+            label: 'Entradas',
+            value: numberToCurency(response.output),
+          },
+        };
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível carregar o resumo.');
+      console.log(error);
+    }
+  }
+
   async function fetchData() {
     const targetDataPromise = fetchTargets();
+    const dataSummaryPromise = fetchSummary();
 
-    const [targetData] = await Promise.all([targetDataPromise]);
+    const [targetData, dataSummary] = await Promise.all([
+      targetDataPromise,
+      dataSummaryPromise,
+    ]);
 
     setTargets(targetData);
+    setSummary(dataSummary);
     setIsFetching(false);
   }
 

@@ -13,7 +13,7 @@ export type HomeHeaderProps = {
 };
 
 type Props = {
-  data: HomeHeaderProps;
+  data: HomeHeaderProps | undefined;
 };
 
 export function HomeHeader({ data }: Props) {
@@ -24,20 +24,20 @@ export function HomeHeader({ data }: Props) {
     >
       <View>
         <Text style={styles.label}>Total que você possui</Text>
-        <Text style={styles.total}>{data.total}</Text>
+        <Text style={styles.total}>{data && data.total}</Text>
       </View>
 
       <Separator color={colors.blue[400]} />
 
       <View style={styles.summary}>
         <Summary
-          data={data.input}
+          data={data && data.input}
           icon={{ name: 'arrow-upward', color: colors.green[500] }}
         />
 
         <Summary
           isRight
-          data={data.output}
+          data={data && data.output}
           icon={{ name: 'arrow-downward', color: colors.red[400] }}
         />
       </View>
